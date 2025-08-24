@@ -11,10 +11,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["https://url-shortener-rho-six.vercel.app"], 
-  methods: ["GET", "POST"],
-  credentials: true
-})); ;
+  origin: "*",   // for testing, allow all
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
