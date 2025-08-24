@@ -2,11 +2,11 @@
   "name": "url-shortener-server",
   "version": "1.0.0",
   "private": true,
-  "main": "server.js",
+  "main": "server/server.js",
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
