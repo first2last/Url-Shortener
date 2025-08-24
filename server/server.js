@@ -9,9 +9,9 @@ const ShortUrl = require('./models/ShortUrl');
 dotenv.config();
 const app = express();
 
-// Middleware
+
 app.use(cors({
-  origin: "*",   // for testing, allow all
+  origin: "*",   
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "x-admin-key"]
 }));
@@ -19,7 +19,7 @@ app.use(express.json());
 app.options("*", cors());
 app.use(morgan('dev'));
 
-// DB connection
+
 const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
   console.error('Missing MONGO_URI in environment');
@@ -32,12 +32,12 @@ mongoose.connect(MONGO_URI)
     process.exit(1);
   });
 
-// Helpers
+
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 7);
 
 function normalizeUrl(url) {
   try {
-    // If it parses, great. If scheme missing, add http://
+    
     let u;
     try {
       u = new URL(url);
@@ -50,7 +50,7 @@ function normalizeUrl(url) {
   }
 }
 
-// Routes
+
 
 
 app.get("/", (req, res) => {
@@ -62,7 +62,6 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString() });
 });
 
-// Admin list route (optional bonus)
 app.get('/api/admin/urls', async (req, res) => {
   try {
     const key = req.header('x-admin-key');
@@ -84,7 +83,7 @@ app.get('/api/admin/urls', async (req, res) => {
   }
 });
 
-// Create a short code
+
 app.post('/api/shorten', async (req, res) => {
   try {
     const { longUrl } = req.body || {};
@@ -97,7 +96,7 @@ app.post('/api/shorten', async (req, res) => {
       return res.status(400).json({ message: 'Invalid URL' });
     }
 
-    // Optionally reuse existing mapping
+  
     const existing = await ShortUrl.findOne({ longUrl: normalized });
     if (existing) {
       return res.json({
@@ -108,7 +107,7 @@ app.post('/api/shorten', async (req, res) => {
     }
 
     let code;
-    // Ensure uniqueness
+    
     for (let i = 0; i < 5; i++) {
       code = nanoid();
       const clash = await ShortUrl.findOne({ shortCode: code });
@@ -131,7 +130,7 @@ app.post('/api/shorten', async (req, res) => {
   }
 });
 
-// Redirect route
+
 app.get('/:shortCode', async (req, res) => {
   try {
     const { shortCode } = req.params;
@@ -139,7 +138,7 @@ app.get('/:shortCode', async (req, res) => {
     if (!doc) {
       return res.status(404).send('Short URL not found');
     }
-    // Increment clicks but don't block redirect on failure
+   
     ShortUrl.updateOne({ _id: doc._id }, { $inc: { clicks: 1 } }).catch(() => {});
     return res.redirect(302, doc.longUrl);
   } catch (err) {
