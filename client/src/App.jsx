@@ -50,12 +50,12 @@ export default function App() {
   return (
     <div className="container">
       <h1>URL Shortener</h1>
-      <p className="tag">Paste a long URL and I will condense its existential crisis.</p>
+      <p className="tag">Paste a long URL.</p>
 
       <form onSubmit={submitUrl}>
         <div className="row">
           <input
-            placeholder="https://www.example.com/some/very/long/path"
+            placeholder="https://www.example.com/"
             value={longUrl}
             onChange={(e) => setLongUrl(e.target.value)}
           />
