@@ -10,7 +10,11 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ["https://url-shortener-rho-six.vercel.app/"], 
+  methods: ["GET", "POST"],
+  credentials: true
+})); ;
 app.use(express.json());
 app.use(morgan('dev'));
 
