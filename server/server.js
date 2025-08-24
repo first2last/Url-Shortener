@@ -16,6 +16,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
+app.options("*", cors());
 app.use(morgan('dev'));
 
 // DB connection
