@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
   origin: "*",   // for testing, allow all
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization", "x-admin-key"]
 }));
 app.use(express.json());
 app.options("*", cors());
