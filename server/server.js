@@ -11,7 +11,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["https://url-shortener-rho-six.vercel.app/"], 
+  origin: ["https://url-shortener-rho-six.vercel.app"], 
   methods: ["GET", "POST"],
   credentials: true
 })); ;
