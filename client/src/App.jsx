@@ -32,7 +32,7 @@ export default function App() {
     }
     setLoading(true)
     try {
-      const res = await fetch('/api/shorten', {
+      const res = await fetch('https://url-shortener-6m22.onrender.com/api/shorten', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ longUrl })
@@ -92,7 +92,7 @@ function Admin() {
   const load = async () => {
     setErr(''); setLoading(true)
     try {
-      const res = await fetch('/api/admin/urls', {
+      const res = await fetch('https://url-shortener-6m22.onrender.com/api/admin/urls', {
         headers: { 'x-admin-key': key }
       })
       const data = await res.json()
